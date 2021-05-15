@@ -5,10 +5,10 @@ import 'dart:collection';
 
 class TaskData extends ChangeNotifier {
   List<Task> _tasks = [
-    Task(name: 'Milk'),
-    Task(name: 'Egg'),
-    Task(name: 'Egg'),
-  ]; //We have made the Array here to expose it to the other trees
+    Task(name: 'Buy milk'),
+    Task(name: 'Buy eggs'),
+    Task(name: 'Buy bread'),
+  ];
 
   UnmodifiableListView<Task> get tasks {
     return UnmodifiableListView(_tasks);
