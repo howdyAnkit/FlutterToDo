@@ -7,14 +7,18 @@ class TaskTile extends StatelessWidget {
   final Function
       checkboxCallBack; //We are getting the value true or false over here only
 
+  final Function longPressCallback;
+
   TaskTile(
       {this.isChecked,
       this.taskTitle,
-      this.checkboxCallBack}); //We have lifted State to get the elements
+      this.checkboxCallBack,
+      this.longPressCallback}); //We have lifted State to get the elements
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      onLongPress: longPressCallback,
       title: Text(
         taskTitle,
         style: TextStyle(

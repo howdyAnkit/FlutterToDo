@@ -1,21 +1,10 @@
 import 'package:flutter/material.dart';
-
+import 'package:todoey/models/task_data.dart';
 import 'package:todoey/widgets/task_list.dart';
 import 'package:todoey/screens/addTaskScreen.dart';
+import 'package:provider/provider.dart';
 
-import 'package:todoey/models/tasks.dart';
-
-class TaskScreen extends StatefulWidget {
-  @override
-  _TaskScreenState createState() => _TaskScreenState();
-}
-
-class _TaskScreenState extends State<TaskScreen> {
-  List<Task> tasks = [
-    Task(name: 'Milk'),
-    Task(name: 'Egg')
-  ]; //We have made the Array here to expose it to the other trees
-
+class TaskScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +14,14 @@ class _TaskScreenState extends State<TaskScreen> {
         child: Icon(Icons.add),
         onPressed: () {
           showModalBottomSheet(
-              context: context, builder: (context) => AddTask());
+              context: context,
+              isScrollControlled: true,
+              builder: (context) => SingleChildScrollView(
+                      child: Container(
+                    padding: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).viewInsets.bottom),
+                    child: AddTask(),
+                  )));
         },
       ),
       body: Column(
@@ -58,7 +54,7 @@ class _TaskScreenState extends State<TaskScreen> {
                       fontWeight: FontWeight.w700),
                 ),
                 Text(
-                  '12 Tasks',
+                  '${Provider.of<TaskData>(context).taskCount} Tasks',
                   style: TextStyle(color: Colors.white, fontSize: 18),
                 ),
               ],
@@ -75,7 +71,7 @@ class _TaskScreenState extends State<TaskScreen> {
                   topRight: Radius.circular(20.0),
                 ),
               ),
-              child: new TaskList(tasks),
+              child: TaskList(),
             ),
           )
         ],
